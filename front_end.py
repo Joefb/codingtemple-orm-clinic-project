@@ -7,7 +7,7 @@ def welcome_menu():
 
     while True:
         print("""
---------- Welcome to Pets R Us. ------------------------
+--------- Welcome to Pets R Us ------------------------
     Where we love your pets so you don't have to!
 --------------------------------------------------------
         1.) Login
@@ -23,31 +23,63 @@ def welcome_menu():
             exit()
 
         if choice == "1":
-            credentials = {"email": "", "password": ""}
-            print("Pets R Us Login!:")
+            owner = owner_login()
 
-            for key in credentials:
-                credentials[key] = input(f"Enter your {key.title()}: ")
-
-            owner = login(credentials)
-
-            if isinstance(owner, str):
-                print(owner)
-            else:
-                print(owner)
+            if owner:
                 return owner
+            # credentials = {"email": "", "password": ""}
+            # print("Pets R Us Login!:")
+            #
+            # for key in credentials:
+            #     credentials[key] = input(f"Enter your {key.title()}: ")
+            #
+            # owner = login(credentials)
+            #
+            # if isinstance(owner, str):
+            #     print(owner)
+            # else:
+            #     print(owner)
+            #     return owner
 
         elif choice == "2":
-            # register function
-            # should set the current user on successful register
-            pass
+            owner = owner_register()
+            return owner
 
         else:
             print("Invalid response please try again.")
 
 
-def user_login():
-    pass
+def owner_login():
+    credentials = {"email": "", "password": ""}
+    print("Pets R Us Login!:")
+
+    for key in credentials:
+        credentials[key] = input(f"Enter your {key.title()}: ")
+
+    owner = login(credentials)
+
+    if isinstance(owner, str):
+        print(owner)
+        return None
+    else:
+        return owner
+
+
+def owner_register():
+    owner_info = {"name": "", "phone": "", "email": "", "password": ""}
+    print("Pets R Us Registration:")
+    print("Woof Woof! Chirp Chirp! Meow Meow!")
+
+    for key in owner_info:
+        owner_info[key] = input(f"Enter your {key.title()}: ")
+
+    new_owner = register(owner_info)
+
+    if isinstance(new_owner, str):
+        print(new_owner)
+        return None
+    else:
+        return new_owner
 
 
 def owner_menu(current_user):
