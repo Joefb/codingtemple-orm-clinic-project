@@ -1,8 +1,7 @@
 from models import (
     Owners,
     session,
-)  # Need the Users model to create and search for users
-# need the sesssion to add users to our db
+)
 
 
 def login(credentials):

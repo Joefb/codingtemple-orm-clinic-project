@@ -1,11 +1,14 @@
 # DONT FORGET TO IMPORT FUNCTIONS AFTER YOU MAKE THEM
 from bp_auth import login, register
+from bp_owner import display_profile, update_profile
 from models import session
+import os
 
 
 def welcome_menu():
     owner = None
 
+    os.system("cls" if os.name == "nt" else "clear")
     while True:
         print("""
 --------- Welcome to Pets R Us ------------------------
@@ -39,6 +42,7 @@ def welcome_menu():
 
 def owner_login():
     credentials = {"email": "", "password": ""}
+    os.system("cls" if os.name == "nt" else "clear")
     print("Pets R Us Login!:")
 
     for key in credentials:
@@ -55,6 +59,7 @@ def owner_login():
 
 def owner_register():
     owner_info = {"name": "", "phone": "", "email": "", "password": ""}
+    os.system("cls" if os.name == "nt" else "clear")
     print("Pets R Us Registration:")
     print("Woof Woof! Chirp Chirp! Meow Meow!")
 
@@ -71,6 +76,7 @@ def owner_register():
 
 
 def owner_menu(current_user):
+    os.system("cls" if os.name == "nt" else "clear")
     while True:
         print("""
     1.) View Profile
@@ -79,12 +85,11 @@ def owner_menu(current_user):
     4.) Back""")
         choice = input("choose 1-3: ")
         if choice == "1":
-            # view profile funtion should display the current users info
-            pass
+            display_profile(current_user)
+
         elif choice == "2":
-            # update profile function, and returns the updated user
-            # on success, should set current_user to the user that is returned
-            pass
+            current_user = update_profile(current_user)
+
         elif choice == "3":
             # delete the current users account
             pass
@@ -95,6 +100,7 @@ def owner_menu(current_user):
 
 
 def pets_menu(current_user):
+    os.system("cls" if os.name == "nt" else "clear")
     while True:
         print("""
 1.) View my Pets
@@ -122,6 +128,7 @@ def pets_menu(current_user):
 
 
 def appointments_menu(current_user):
+    os.system("cls" if os.name == "nt" else "clear")
     while True:
         print("""
 1.) schedule appointment
@@ -149,8 +156,12 @@ def appointments_menu(current_user):
 
 
 def logout(current_user):
+    os.system("cls" if os.name == "nt" else "clear")
     print(f"Goodbye {current_user.name.title()}!")
     print("Thanks for visiting Pets R Us!")
+    print(
+        "Dont forget our weekely special. Put one pet down get another pet put down free!(Pugs are always free!)"
+    )
     print("Visit us again to take care of your furry friends! Woof Woof!")
     session.close()
     exit()
@@ -163,6 +174,7 @@ def main():
     # to set current_user to a user in your db so you don't have to log in everytime
     # you want to test something.
 
+    os.system("cls" if os.name == "nt" else "clear")
     if current_user:
         while True:
             print("""
