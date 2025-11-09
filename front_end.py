@@ -1,9 +1,10 @@
 # DONT FORGET TO IMPORT FUNCTIONS AFTER YOU MAKE THEM
 from bp_auth import login, register
+from models import session
 
 
 def welcome_menu():
-    current_user = None
+    owner = None
 
     while True:
         print("""
@@ -24,26 +25,13 @@ def welcome_menu():
 
         if choice == "1":
             owner = owner_login()
-
             if owner:
                 return owner
-            # credentials = {"email": "", "password": ""}
-            # print("Pets R Us Login!:")
-            #
-            # for key in credentials:
-            #     credentials[key] = input(f"Enter your {key.title()}: ")
-            #
-            # owner = login(credentials)
-            #
-            # if isinstance(owner, str):
-            #     print(owner)
-            # else:
-            #     print(owner)
-            #     return owner
 
         elif choice == "2":
             owner = owner_register()
-            return owner
+            if owner:
+                return owner
 
         else:
             print("Invalid response please try again.")
@@ -160,6 +148,14 @@ def appointments_menu(current_user):
             return
 
 
+def logout(current_user):
+    print(f"Goodbye {current_user.name.title()}!")
+    print("Thanks for visiting Pets R Us!")
+    print("Visit us again to take care of your furry friends! Woof Woof!")
+    session.close()
+    exit()
+
+
 def main():
     current_user = welcome_menu()
 
@@ -174,9 +170,12 @@ def main():
         1.) Manage Profile
         2.) My Pets
         3.) My Appointments
+        4.) Logout
         """)
             choice = input("choose 1-3: ")
-            if choice == "1":
+            if choice == "4":
+                logout(current_user)
+            elif choice == "1":
                 owner_menu(current_user)
             elif choice == "2":
                 pets_menu(current_user)
