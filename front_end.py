@@ -1,6 +1,6 @@
 # DONT FORGET TO IMPORT FUNCTIONS AFTER YOU MAKE THEM
 from bp_auth import login, register
-from bp_owner import display_profile, update_profile
+from bp_owner import display_profile, update_profile, delete_profile
 from models import session
 import os
 
@@ -91,8 +91,11 @@ def owner_menu(current_user):
             current_user = update_profile(current_user)
 
         elif choice == "3":
-            # delete the current users account
-            pass
+            if delete_profile(current_user):
+                main()
+            else:
+                main()  # Seemes redundant.....
+
         elif choice == "4":
             return  # Goes back to main menu
         else:
@@ -160,7 +163,7 @@ def logout(current_user):
     print(f"Goodbye {current_user.name.title()}!")
     print("Thanks for visiting Pets R Us!")
     print(
-        "Dont forget our weekely special. Put one pet down get another pet put down free!(Pugs are always free!)"
+        "Dont forget our weekly special. Put one pet down get another pet put down free!(Pugs are always free!)"
     )
     print("Visit us again to take care of your furry friends! Woof Woof!")
     session.close()

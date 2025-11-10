@@ -1,4 +1,6 @@
 from models import Owners, session
+
+# from front_end import main
 import os
 
 
@@ -11,6 +13,7 @@ def display_profile(current_user):
     print(f"Phone: {current_user.phone}")
     print(f"Email: {current_user.email}")
     print("---------------------------\n")
+    return
 
 
 def update_profile(current_user):
@@ -46,6 +49,33 @@ def update_profile(current_user):
     print(f"Email: {current_user.email}")
     print("---------------------------\n")
     return current_user
+
+
+def delete_profile(current_user):
+    os.system("cls" if os.name == "nt" else "clear")
+    print("Pets R Us - Delete Profile")
+    print("Awweeee so sad.... Hisssss! Bark! Chirp! Poop.")
+
+    confirm = input("Are you sure you want to delete your profile?(yes/no): ")
+    if confirm.lower() == "yes":
+        session.delete(current_user)
+        session.commit()
+        print(
+            "Your profile has been deleted. We're sad to see you go!(not really. your pet pooped on my favorite scarf...)"
+        )
+        print(
+            "Hahaha! We dont delete anything! Selling your private data to the highest.... naaaa lowest bidder!"
+        )
+
+        # Restart the app
+        return True
+
+    elif confirm.lower() == "no":
+        print("Glad you decided to stay! Returning to main menu.")
+        return False
+    else:
+        # Oooo slip in some recussion
+        delete_profile(current_user)
 
 
 # Update profile function
