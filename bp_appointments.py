@@ -90,7 +90,7 @@ def view_appointments(current_user):
         print(f"Appointments for {pet.name}:")
         for appointment in pet.appointments:
             print(
-                f"ID: {appointment.id}\nDate: {appointment.appointment_date}\nVet: {appointment.vet.name}\nStatus: {appointment.status}\nNotes: {appointment.notes}"
+                f"ID: {appointment.id}\nDate: {appointment.appointment_date}\nVet: {appointment.vet.name}\nStatus: {appointment.status}\nNotes: {appointment.notes}\nStatus: {appointment.status}"
             )
         print("-----------------------------------")
 
@@ -117,6 +117,33 @@ def reschedule_appointment(current_user):
                 select_appointment.appointment_date = new_date
                 session.commit()
                 print("Appointment rescheduled successfully!")
+                return
+
+        except ValueError:
+            print("Invalid input. Please enter a valid number.")
+            continue
+
+
+def complete_appointment(current_user):
+    print("Pets R Us - Complete Appointment")
+    view_appointments(current_user)
+    print("Which appointment would you like to mark as complete? Use the ID number.")
+
+    while True:
+        try:
+            id_input = int(input("Enter appointment ID: "))
+            select_appointment = (
+                session.query(Appointments).filter_by(id=id_input).first()
+            )
+
+            if not select_appointment:
+                print("O snap!! Try that again. Thats not a valid ID.")
+                continue
+
+            elif select_appointment:
+                select_appointment.status = "Complete"
+                session.commit()
+                print("Appointment marked as complete successfully!")
                 return
 
         except ValueError:

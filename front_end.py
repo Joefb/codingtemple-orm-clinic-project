@@ -6,7 +6,8 @@ from bp_appointments import (
     new_appointment,
     view_appointments,
     reschedule_appointment,
-)  # , complete_appointment
+    complete_appointment,
+)
 from models import session
 
 # from bp_appointments import
@@ -160,8 +161,8 @@ def appointments_menu(current_user):
             reschedule_appointment(current_user)
 
         elif choice == "4":
-            # Complete appointment (change status to complete)
-            pass
+            complete_appointment(current_user)
+
         elif choice == "5":
             return
 
@@ -180,10 +181,6 @@ def logout(current_user):
 
 def main():
     current_user = welcome_menu()
-
-    # After you test you login and register functions, it might be more efficient
-    # to set current_user to a user in your db so you don't have to log in everytime
-    # you want to test something.
 
     os.system("cls" if os.name == "nt" else "clear")
     if current_user:
