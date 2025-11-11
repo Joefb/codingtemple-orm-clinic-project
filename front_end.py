@@ -2,6 +2,7 @@
 from bp_auth import login, register
 from bp_owner import display_profile, update_profile, delete_profile
 from bp_pets import view_pets, create_pet, update_pet, delete_pet
+from bp_appointments import new_appointment
 from models import session
 
 # from bp_appointments import
@@ -138,20 +139,19 @@ def appointments_menu(current_user):
     os.system("cls" if os.name == "nt" else "clear")
     while True:
         print("""
-1.) schedule appointment
-2.) view appointments
-3.) reschdule appointment
+1.) Schedule appointment
+2.) View appointments
+3.) Reschdule appointment
 4.) Complete appointment
 5.) Back
 """)
         choice = input("choose 1-5: ")
         if choice == "1":
-            # Function to create a new appointment between one of the user's pets
-            # and one of the vets
-            pass
+            new_appointment(current_user)
+
         elif choice == "2":
-            # View current user's appointments
             pass
+
         elif choice == "3":
             # Reschedule appointment (change the date)
             pass
