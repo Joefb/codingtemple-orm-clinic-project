@@ -1,20 +1,11 @@
 from models import Owners, Pets, Vets, session, Appointments
 from bp_pets import view_pets, select_pet
 from datetime import datetime
-
-# IMPORTANT when creating an appointment, it is required to convert the date string
-# "YYYY-MM-DD" int a python date object
-
-# date_format = "%Y-%m-%d"  # This will be used to format your date
-
-# Syntax for date conversion
-
-# new_date = datetime.strptime("Date String", date_format)
-# example
-# today = datetime.strptime("2025-08-08", date_format)
+import os
 
 
 def new_appointment(current_user):
+    os.system("cls" if os.name == "nt" else "clear")
     print("Pets R Us - Create New Appointment")
     print("-----------------------------------")
     print("What pet would you like to schedule an appointment for?")
@@ -39,7 +30,7 @@ def get_notes():
 
 
 def get_date():
-    date_format = "%Y-%m-%d"  # This will be used to format your date
+    date_format = "%Y-%m-%d"
     print("What date would you like to schedule the appointment for?")
 
     while True:
@@ -56,6 +47,7 @@ def get_date():
 
 
 def show_vets():
+    os.system("cls" if os.name == "nt" else "clear")
     print("Please select a veterinarian for the appointment:")
     print("Here is a list of our available veterinarians:")
     print("-----------------------------------")
@@ -83,7 +75,6 @@ def show_vets():
 
 def view_appointments(current_user):
     print("Pets R Us - View Appointments")
-    print("Hooray! We get to see you soon..........")
     print("-----------------------------------")
 
     for pet in current_user.pets:
@@ -96,6 +87,7 @@ def view_appointments(current_user):
 
 
 def reschedule_appointment(current_user):
+    os.system("cls" if os.name == "nt" else "clear")
     print("Pets R Us - Reschedule Appointment")
     print("Pulling up your appointments...")
     view_appointments(current_user)
@@ -125,6 +117,7 @@ def reschedule_appointment(current_user):
 
 
 def complete_appointment(current_user):
+    os.system("cls" if os.name == "nt" else "clear")
     print("Pets R Us - Complete Appointment")
     view_appointments(current_user)
     print("Which appointment would you like to mark as complete? Use the ID number.")
@@ -149,10 +142,3 @@ def complete_appointment(current_user):
         except ValueError:
             print("Invalid input. Please enter a valid number.")
             continue
-
-
-# Complete appointments
-# Show appointments with ids (Loop over current user pets, loop over each pets appointments e.g nested loop)
-# query the appointment by id
-# change appointment.status to 'complete"
-# print success message

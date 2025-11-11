@@ -3,6 +3,7 @@ import os
 
 
 def view_pets(current_user):
+    os.system("cls" if os.name == "nt" else "clear")
     print("Pets R Us - View My Pets")
     print("Here is a list of your beloved pets!: ")
     print("-----------------------------------")
@@ -83,6 +84,7 @@ def update_pet(current_user):
 
 
 def delete_pet(current_user):
+    os.system("cls" if os.name == "nt" else "clear")
     print("Pets R Us - Delete Pet")
     print("Poor fido... Goodbye old friend.")
     print("What pet would you like to delete?")

@@ -103,10 +103,10 @@ def owner_menu(current_user):
             if delete_profile(current_user):
                 main()
             else:
-                main()  # Seemes redundant.....
+                main()
 
         elif choice == "4":
-            return  # Goes back to main menu
+            return
         else:
             print("Invalid Selection.")
 
