@@ -1,6 +1,4 @@
 from models import Owners, session
-
-# from front_end import main
 import os
 
 
@@ -76,11 +74,3 @@ def delete_profile(current_user):
     else:
         # Oooo slip in some recussion
         delete_profile(current_user)
-
-
-# Update profile function
-# Ask user to confirm they want to delete
-# if so delete the current user from the session
-# commits changes
-# call main() to start the program over
-
