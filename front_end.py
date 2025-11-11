@@ -2,7 +2,7 @@
 from bp_auth import login, register
 from bp_owner import display_profile, update_profile, delete_profile
 from bp_pets import view_pets, create_pet, update_pet, delete_pet
-from bp_appointments import new_appointment
+from bp_appointments import new_appointment, view_appointments
 from models import session
 
 # from bp_appointments import
@@ -150,7 +150,7 @@ def appointments_menu(current_user):
             new_appointment(current_user)
 
         elif choice == "2":
-            pass
+            view_appointments(current_user)
 
         elif choice == "3":
             # Reschedule appointment (change the date)

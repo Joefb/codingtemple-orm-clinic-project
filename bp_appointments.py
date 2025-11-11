@@ -62,16 +62,18 @@ def show_vets():
 
     vets = session.query(Vets).all()
     for vet in vets:
-        print(f"ID: {vet.id}, Name: {vet.name}, Specialization: {vet.specialization}")
-    print("-----------------------------------")
+        print(
+            f"Employee Number: {vet.id} - Name: {vet.name} - Specialization: {vet.specialization}"
+        )
+        print("-----------------------------------")
 
     while True:
         try:
-            vet_id = int(input("Enter the vet ID: "))
+            vet_id = int(input("Enter the vet employee number: "))
 
             selected_vet = session.query(Vets).filter_by(id=vet_id).first()
             if not selected_vet:
-                print("Invalid vet ID. Please try again.")
+                print("Invalid employee number. Please try again.")
             elif selected_vet:
                 return selected_vet
 
@@ -79,16 +81,19 @@ def show_vets():
             print("Invalid input. Please enter a valid number.")
 
 
-# Create new appointment
-# display pets
-# Choose the pet you wish to create an appointment for
-# query them out of the db using their name
-# display vets
-# Choose the vet you with to create an appointment with
-# Query them out of the db
-# Gather the rest of the info for the appointment
-# Convert the date string to python date object
-# Create the Appointment() (remind you'll need the pet id and the vet id)
+def view_appointments(current_user):
+    print("Pets R Us - View Appointments")
+    print("Hooray! We get to see you soon..........")
+    print("-----------------------------------")
+
+    for pet in current_user.pets:
+        print(f"Appointments for {pet.name}:")
+        for appointment in pet.appointments:
+            print(
+                f"Date: {appointment.appointment_date}\nVet: {appointment.vet.name}\nStatus: {appointment.status}\nNotes: {appointment.notes}"
+            )
+        print("-----------------------------------")
+
 
 # Reschedule appointments
 # Show appointments with ids (Loop over current user pets, loop over each pets appointments e.g nested loop)
