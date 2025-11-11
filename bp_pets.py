@@ -37,13 +37,8 @@ def create_pet(current_user):
         print(f"An error occurred while creating the pet: {e}")
 
 
-def update_pet(current_user):
-    os.system("cls" if os.name == "nt" else "clear")
-    print("Pets R Us - Update Pet")
-    print("Lets get fido updated!")
-
+def select_pet(current_user):
     print("Here is a list of your pets: ")
-    print("Select the number of the pet you want to update:")
     while True:
         try:
             counter = 1
@@ -61,7 +56,16 @@ def update_pet(current_user):
         except ValueError:
             print("Invalid input. Please enter a valid number.")
 
-    get_pet = current_user.pets[int(pet_choice)]
+    return pet_choice
+
+
+def update_pet(current_user):
+    os.system("cls" if os.name == "nt" else "clear")
+    print("Pets R Us - Update Pet")
+    print("Lets get fido updated!")
+    print("Which pet would you like to update?")
+
+    get_pet = current_user.pets[select_pet(current_user)]
 
     for field in get_pet.__table__.columns.keys():
         if field in ["id", "owner_id"]:
@@ -79,26 +83,11 @@ def update_pet(current_user):
 
 
 def delete_pet(current_user):
-    print("Here is a list of your pets: ")
-    print("Select the number of the pet you want to delete:")
-    while True:
-        try:
-            counter = 1
-            for current_pet in current_user.pets:
-                print(f"{counter} - Name: {current_pet.name}")
-                counter += 1
+    print("Pets R Us - Delete Pet")
+    print("Poor fido... Goodbye old friend.")
+    print("What pet would you like to delete?")
 
-            pet_choice = int(input("Enter number: ")) - 1
-
-            if pet_choice < 0 or pet_choice >= len(current_user.pets):
-                print("Thats not a valid pet number silly! Please try again.")
-                continue
-            else:
-                break
-        except ValueError:
-            print("Invalid input. Please enter a valid number.")
-
-    get_pet = current_user.pets[int(pet_choice)]
+    get_pet = current_user.pets[select_pet(current_user)]
     print("Are you sure you want to delete this pet?")
     answer = input("(yes/no): ")
     if answer == "no":
