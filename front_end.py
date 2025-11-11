@@ -1,7 +1,7 @@
 # DONT FORGET TO IMPORT FUNCTIONS AFTER YOU MAKE THEM
 from bp_auth import login, register
 from bp_owner import display_profile, update_profile, delete_profile
-from bp_pets import view_pets  # create_pet, update_pet, delete_pet
+from bp_pets import view_pets, create_pet  # , update_pet, delete_pet
 from models import session
 import os
 
@@ -105,7 +105,7 @@ def owner_menu(current_user):
 
 def pets_menu(current_user):
     os.system("cls" if os.name == "nt" else "clear")
-    # user_pets = current_user.pets
+
     while True:
         print("""
 1.) View my Pets
@@ -118,8 +118,8 @@ def pets_menu(current_user):
             view_pets(current_user)
 
         elif choice == "2":
-            # function to create a new pet linked to the current user, add to db
-            pass
+            create_pet(current_user)
+
         elif choice == "3":
             # function to update a particular pet
             pass

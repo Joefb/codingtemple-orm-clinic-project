@@ -11,7 +11,25 @@ def view_pets(current_user):
 
 
 def create_pet(current_user):
-    pass
+    print("Pets R Us - Create Pet")
+    new_pet = Pets(owner_id=current_user.id)
+    pet_info = {"name": "", "species": "", "breed": "", "age": ""}
+
+    for key in pet_info:
+        pet_info[key] = input(f"Enter your pet's {key.title()}: ")
+
+    try:
+        if current_user:
+            new_pet = Pets(owner_id=current_user.id, **pet_info)
+            session.add(new_pet)
+            session.commit()
+            print("New pet created successfully!")
+            print(
+                f"Name: {new_pet.name}, Species: {new_pet.species}, Breed: {new_pet.breed}, Age: {new_pet.age}"
+            )
+    except Exception as e:
+        print(f"An error occurred while creating the pet: {e}")
+        print("Make sure Spike in not an the keyboard!")
 
 
 # Create pets function
