@@ -90,17 +90,39 @@ def view_appointments(current_user):
         print(f"Appointments for {pet.name}:")
         for appointment in pet.appointments:
             print(
-                f"Date: {appointment.appointment_date}\nVet: {appointment.vet.name}\nStatus: {appointment.status}\nNotes: {appointment.notes}"
+                f"ID: {appointment.id}\nDate: {appointment.appointment_date}\nVet: {appointment.vet.name}\nStatus: {appointment.status}\nNotes: {appointment.notes}"
             )
         print("-----------------------------------")
 
 
-# Reschedule appointments
-# Show appointments with ids (Loop over current user pets, loop over each pets appointments e.g nested loop)
-# Select an appointment by id
-# ask user for new date
-# convert date
-# update the appointment date
+def reschedule_appointment(current_user):
+    print("Pets R Us - Reschedule Appointment")
+    print("Pulling up your appointments...")
+    view_appointments(current_user)
+    print("What appointment? Use the ID number.")
+
+    while True:
+        try:
+            id_input = int(input("Enter appointment ID: "))
+            select_appointment = (
+                session.query(Appointments).filter_by(id=id_input).first()
+            )
+
+            if not select_appointment:
+                print("Oops! Try that again. Thats not a valid ID.")
+                continue
+
+            elif select_appointment:
+                new_date = get_date()
+                select_appointment.appointment_date = new_date
+                session.commit()
+                print("Appointment rescheduled successfully!")
+                return
+
+        except ValueError:
+            print("Invalid input. Please enter a valid number.")
+            continue
+
 
 # Complete appointments
 # Show appointments with ids (Loop over current user pets, loop over each pets appointments e.g nested loop)
