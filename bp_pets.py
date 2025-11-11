@@ -3,12 +3,14 @@ import os
 
 
 def view_pets(current_user):
+    print("Pets R Us - View My Pets")
+    print("Here is a list of your beloved pets!: ")
+    print("-----------------------------------")
     for current_pet in current_user.pets:
-        print("Pets R Us - View My Pets")
-        print("Here is a list of your beloved pets!: ")
         print(
             f"Name: {current_pet.name}, Species: {current_pet.species}, Breed: {current_pet.breed}, Age: {current_pet.age}"
         )
+        print("-----------------------------------")
 
 
 def create_pet(current_user):
@@ -64,6 +66,7 @@ def update_pet(current_user):
     for field in get_pet.__table__.columns.keys():
         if field in ["id", "owner_id"]:
             continue
+
         current_value = getattr(get_pet, field)
         new_value = input(f"Enter new {field} (current: {current_value}): ")
         if new_value:
@@ -71,23 +74,42 @@ def update_pet(current_user):
 
     print("Updating pet info...")
     session.commit()
+    print("Pet info updated successfully!")
     return
 
 
-# Update pets function
-# display current users pets
-# allow them to select a pet BY NAME
-# query that pet from the database
-# get updated info from the user
-# set that pets info to the new info
-# commit changes
-# print new pet info
+def delete_pet(current_user):
+    print("Here is a list of your pets: ")
+    print("Select the number of the pet you want to delete:")
+    while True:
+        try:
+            counter = 1
+            for current_pet in current_user.pets:
+                print(f"{counter} - Name: {current_pet.name}")
+                counter += 1
 
+            pet_choice = int(input("Enter number: ")) - 1
 
-# Delete pets function
-# display current users pets
-# allow them to select a pet BY NAME
-# query that pet from the database
-# Ask user if they are sure they want to delete this pet
-# delete pet from the session
-# commit changes
+            if pet_choice < 0 or pet_choice >= len(current_user.pets):
+                print("Thats not a valid pet number silly! Please try again.")
+                continue
+            else:
+                break
+        except ValueError:
+            print("Invalid input. Please enter a valid number.")
+
+    get_pet = current_user.pets[int(pet_choice)]
+    print("Are you sure you want to delete this pet?")
+    answer = input("(yes/no): ")
+    if answer == "no":
+        print("Phew! That was close!")
+        return
+    elif answer == "yes":
+        print("Deleting pet...")
+        session.delete(get_pet)
+        session.commit()
+        print("Pet deleted successfully!")
+        return
+    else:
+        print("Oops! Thats not a valid number. Please try again.")
+        delete_pet(current_user)  # Recursion for invalid input

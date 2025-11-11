@@ -1,7 +1,7 @@
 # DONT FORGET TO IMPORT FUNCTIONS AFTER YOU MAKE THEM
 from bp_auth import login, register
 from bp_owner import display_profile, update_profile, delete_profile
-from bp_pets import view_pets, create_pet, update_pet  # , delete_pet
+from bp_pets import view_pets, create_pet, update_pet, delete_pet
 from models import session
 import os
 
@@ -124,8 +124,8 @@ def pets_menu(current_user):
             update_pet(current_user)
 
         elif choice == "4":
-            # function to delete a particuler pet
-            pass
+            delete_pet(current_user)
+
         elif choice == "5":
             return
         else:
