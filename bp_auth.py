@@ -1,19 +1,38 @@
-from models import Owners, session #Need the Users model to create and search for users
-#need the sesssion to add users to our db
+from models import (
+    Owners,
+    session,
+)
 
 
+def login(credentials):
+    try:
+        owner = (
+            session.query(Owners).where(Owners.email == credentials["email"]).first()
+        )
+        if owner and owner.password == credentials["password"]:
+            return owner
+        else:
+            return "Login failed: Invalid email or password."
 
-#Create Login function
-#get email and password from user
-#check database for owner with the given email
-#if you find an owner, check if the found owners password is the same as the given password
-#if so return user
+    except Exception as e:
+        return f"An error occurred during login: {e}"
 
 
-#Create Register function
-#get all info required to create an owner from the user
-#try and create an Owner from the info (will fail if email is already in user)
-#if you succeed return user
-#except error and print message
+def register(owner_info):
+    try:
+        check_email = (
+            session.query(Owners).where(Owners.email == owner_info["email"]).first()
+        )
 
+        if check_email:
+            return "Registration failed: Email already in use."
 
+        else:
+            new_owner = Owners(**owner_info)
+            session.add(new_owner)
+            session.commit()
+            print("Registration successful!")
+            return new_owner
+
+    except Exception as e:
+        return f"Registration failed: {e}"
